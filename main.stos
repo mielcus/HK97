@@ -1,5 +1,5 @@
 for racs = 5 to 13 : reserve as screen racs : next racs : gosub 490 : dim route(9) : dim sprrt(9) 
-load "\hk97\sprites\1.neo",5 : load "\hk97\sprites\2.neo",6 : load "\hk97\sprites\3.neo",7 : load "\hk97\sprites\4.neo",8 : load "C:\programowanie\hk97\sprites\title.neo",9 : load "\hk97\sprites\ded.neo",11
+load "\hk97\sprites\1.neo",5 : load "\hk97\sprites\2.neo",6 : load "\hk97\sprites\3.neo",7 : load "\hk97\sprites\4.neo",8 : load "\hk97\sprites\title.neo",9 : load "\hk97\sprites\ded.neo",11
 fade 8 to 9 : screen copy 9 to physic: waitkey 
 fade 8 to 5 : screen copy 5 to physic: waitkey 
 fade 8 to 6 : screen copy 6 to physic: waitkey 
