@@ -1,0 +1,80 @@
+for racs = 5 to 13 : reserve as screen racs : next racs : gosub 490 : dim route(9) : dim sprrt(9) 
+load "\hk97\sprites\1.neo",5 : load "\hk97\sprites\2.neo",6 : load "\hk97\sprites\3.neo",7 : load "\hk97\sprites\4.neo",8 : load "C:\programowanie\hk97\sprites\title.neo",9 : load "\hk97\sprites\ded.neo",11
+fade 8 to 9 : screen copy 9 to physic: waitkey 
+fade 8 to 5 : screen copy 5 to physic: waitkey 
+fade 8 to 6 : screen copy 6 to physic: waitkey 
+fade 8 to 7 : screen copy 7 to physic: waitkey 
+fade 8 to 8 : screen copy 8 to physic: waitkey 
+load "\hk97\sprites\sprites.mbk",1 : gosub 490 : X=149 : Y= 99 : sprite on : bob logic,start(1),15,X,Y,0 
+bacgrnd = rnd(3) 
+if bacgrnd = 0 then load "\hk97\sprites\cocacola.neo",10 : screen copy 10 to physic :  screen copy 10 to back
+if bacgrnd = 1 then load "\hk97\sprites\corona.neo",10 : screen copy 10 to physic :  screen copy 10 to back
+if bacgrnd = 2 then load "\hk97\sprites\mao.neo",10 : screen copy 10 to physic :  screen copy 10 to back 
+if bacgrnd = 3 then load "\hk97\sprites\xijinping.neo",10 :  screen copy 10 to physic :  screen copy 10 to back
+ for spr = 1 to 6  
+    route(spr) = rnd(2)
+    if route(spr) = 0 then sprite on : sprite spr,rnd(299),0,7 : move y spr,"(12,4,50)(1,-200,1)L" : move on spr : anim spr,"(7,5)(8,5)L" : anim on spr : sprrt(spr) = 1  
+    if route(spr) = 1 then sprite on : sprite spr,rnd(149)+70,0,9 : move y spr,"(12,5,40)(1,-200,1)L" : move x spr,"(12,3,10)(12,-3,10)L" : anim spr,"(9,5)(10,5)L" : anim on spr : move on spr : sprrt(spr) = 2 
+    if route(spr) = 2 then sprite on : sprite spr,rnd(149)+70,0,11 : move y spr,"(12,2,100)(1,-200,1)L" : move x spr,"(12,5,10)(12,-5,10)L" : anim spr,"(11,5)(12,5)L" : anim on spr : move on spr : sprrt(spr) = 3  
+next spr
+gosub 270
+gosub 580
+gosub 450
+gosub 330
+gosub 630
+gosub 670
+goto 200
+if jleft then X=X-8 : anim 15,"(13,5)(14,5)(15,5)(16,5)(17,5)L" : anim on 15 : rem else anim 15,"(8,5)(9,5)" : anim on 15
+if jright then X=X+8 : anim 15,"(3,5)(4,5)L" : anim on 15 
+if jup then Y=Y-8 : anim 15,"(5,5)(6,5)L" : anim on 15 
+if jdown then Y=Y+8 : anim 15,"(3,5)(4,5)L" : anim on 15 
+bob logic,start(1),15,X,Y,0  
+return
+for tst = 1 to 6 
+    for blt = 10 to 14
+    t2 = collide(blt,16,16)  
+    if BTST(tst,t2) then anim tst,"(22,2)(23,2)(24,2)(25,2)(26,2)" : anim on tst : move off tst : gosub 540 : inc scre
+  next blt 
+    t = collide(15,16,40)
+    if BTST(tst,t) then goto 720
+next tst 
+for blttst = 7 to 9
+    if btst(blttst,t) then goto 720
+  next blttst
+return
+if sht = 0 then sht = 9   
+if sht + 1 > 14 then sht = 9   
+if fire then inc sht : sprite sht,X,Y,26 : shoot : move y sht,"(1,-10,23)" : move on 
+return 
+rem weird shit
+mode 0 : key off : hide on : curs off : clear key : click off : curs off : cls logic : cls physic : cls back
+XP=hunt(start(1) to start(1)+length(1),"PALT")
+XP=XP+4 : for I=0 to 15 : colour I,deek(I*2+XP) : next I
+return
+if sprrt(tst) = 0 then sprite on : anim off tst : sprite tst,rnd(299),0,7 : move y tst,"(12,4,50)(1,-200,1)L" : move on tst : anim tst,"(7,5)(8,5)L" : anim on tst
+if sprrt(tst) = 1 then sprite on : anim off tst : sprite tst,rnd(149)+70,0,9 : move y tst,"(12,5,40)(1,-200,1)L" : move x tst,"(12,3,10)(12,-3,10)L" : move on tst : anim tst,"(9,5)(10,5)L" : anim on tst
+if sprrt(tst) = 2 then sprite on : anim off tst : sprite tst,rnd(149)+70,0,11 : move y tst,"(12,2,100)(1,-200,1)L" : move x tst,"(12,5,10)(12,-5,10)L" : move on tst : anim tst,"(11,5)(12,5)L" : anim on tst
+return
+spr5x=X SPRITE(5) : spr5y=Y SPRITE(5) : buletbum = rnd(4) 
+if ensht = 0 then ensht = 7 
+if ensht + 1 > 9 then ensht = 7 : rem tu moze byc problem  
+if buletbum = 4 then inc ensht : sprite ensht,spr5x,spr5y,25  : move y ensht,"(1,40,5)" : move on ensht 
+return
+locate 1,1  
+? scre  
+if SCre > 1200000000 then reset 
+return  
+ttb = rnd(30)
+if ttb = rnd(30) then sprite off : move off : sprite on 1 : sprite 1,319,99,20 : move x 1,"(10,-20,10)(1,200,1)L" : move on 1 : sprite on 15 : sprite 15,X,Y,1 : gosub 690 : return else return
+gosub 270 
+gosub 450
+  for bossblt = 10 to 14
+  bosscld = collide(1,40,40)
+  if BTST(bossblt,bosscld) then inc boss 
+  next bossblt        
+if boss > 15 then boss = 0 : for bossstp = 1 to   return else goto 690  
+sprite off : boom : wait 5  
+fade 8 to 11 : screen copy 11 to physic: waitkey : scre=0 : waitkey : gosub 740 : goto 30 : rem gameover
+for ng = 0 to 9 : rem dim=0
+route(ng) = 0 : sprrt(ng) = 0
+next ng : return
